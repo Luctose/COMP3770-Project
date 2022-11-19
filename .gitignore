@@ -1,0 +1,9 @@
+# Ignore these folders
+COMP3770_Final/Library
+COMP3770_Final/Logs
+COMP3770_Final/Packages
+COMP3770_Final/ProjectSettings
+COMP3770_Final/Temp
+COMP3770_Final/UserSettings
+# Ignore all meta files
+*.meta
