@@ -11,18 +11,22 @@ public class MainMenu : MonoBehaviour
     int screenH;
     int screenW;
 
-    int screen = 0;
+    int screen;
 
     private int m_buttonW; //200
     private int m_buttonH; //50
     public int m_nbButtons = 4;
     Rect[] m_buttonsRect;
+    Rect[] load_buttonsRect;
+    Rect settingsButton;
 
     string[] m_levelNames;
+    string[] load_levelNames;
     
     // Start is called before the first frame update
     void Start()
     {
+        screen = 0;
         screenH = Screen.width;
         screenW = Screen.height;
 
@@ -35,6 +39,7 @@ public class MainMenu : MonoBehaviour
         noBackground.normal.textColor = Color.white;
         noBackground.font = menuFont;
 
+        // =====   MENU BUTTONS   ===== //
         m_buttonsRect = new Rect[m_nbButtons];
         for(int i = 0; i < m_nbButtons; ++i){
             m_buttonsRect[i] = new Rect(m_buttonW/6, (i * (m_buttonH + m_buttonH/8)) + screenH/16, m_buttonW, m_buttonH);
@@ -45,13 +50,20 @@ public class MainMenu : MonoBehaviour
         m_levelNames[1] = "Load Game";
         m_levelNames[2] = "Settings";
         m_levelNames[3] = "Quit";
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // =====   LOAD BUTTONS   ===== //
+        load_buttonsRect = new Rect[m_nbButtons];
+        for(int i = 0; i < m_nbButtons; ++i){
+            load_buttonsRect[i] = new Rect(m_buttonW/6, (i * (m_buttonH + m_buttonH/8)) + screenH/16, m_buttonW, m_buttonH);
+        }
+
+        load_levelNames = new string[m_nbButtons];
+        load_levelNames[0] = "Save 1";
+        load_levelNames[1] = "Save 2";
+        load_levelNames[2] = "Save 3";
+        load_levelNames[3] = "Back";
+
+        settingsButton = new Rect(m_buttonW/6, (3 * (m_buttonH + m_buttonH/8)) + screenH/16, m_buttonW, m_buttonH);
     }
 
     void OnGUI(){
@@ -68,6 +80,8 @@ public class MainMenu : MonoBehaviour
                         // Quit the game (Ignored in the unity editor only when the game is built)
                         Application.Quit();
                     }
+                    else if(i == 1){screen=1;}
+                    else if(i == 2){screen=2;}
                     else{
                         // Load the pressed scene
                         SceneManager.LoadScene(m_levelNames[i]);
@@ -75,7 +89,22 @@ public class MainMenu : MonoBehaviour
                 }
             }
         }
-        if (screen == 1)
-        {}
+        else if (screen == 1)
+        {
+            for(i = 0; i < m_nbButtons; ++i){
+                if(GUI.Button(load_buttonsRect[i], load_levelNames[i], noBackground)){
+                    // When back is pressed
+                    if(i == 3){screen=0;}
+                    else{
+                        // Load the pressed scene
+                        // Write data to the data file corresponding with selected save
+                    }
+                }
+            }
+        }
+        else if (screen == 2)
+        {
+            if(GUI.Button(settingsButton, "Back", noBackground)){screen=0;}
+        }
     }
 }
