@@ -1,0 +1,47 @@
+Setup Grid Manager
+
+REQUIRED OBJECTS IN HIERARCHY
+- GridGenerator (Empty object) with following scripts:
+    - LevelInitializer
+        - Grid Base Prefab = FloorPrefab (Quad with grid material)
+        - Unit Prefab = PlayerModel (only prefab, PlayerModel is not in hierarchy)
+        - Unit Count: Number of units to spawn
+        - Unit Offset: Multiple for Unit spawn location
+    - LevelManager
+        - LvlObjects
+            - This is supposed to hold all objects on the map
+            - Can create multiple lists for multiple floors (Floor Index)
+            - But, this needs fixing
+    - PlayerInteractions
+        - ActiveUnit = Unit current in player's control (Drop in during runtime for now)
+        - HasPath/HoldPath: Do not toggle
+        - VisualizePath: If you want the path line to render
+        - LineGO: The line object with the LineRenderer attached
+- Grid (Prefab) with scripts:
+    - GridBase
+        - Set grid dimensions using MaxX/Y/Z
+        - Offset values is if FloorPrefab (quad) has been scaled larger
+        - GridFloorPrefab = FloorPrefab
+    - PathfindMaster
+        - MaxJobs = Number of threads to open during initializing/runtime
+
+Map objects need LevelObject Script attached:
+- Set floor objects with Obj Type: Floor
+- Set outside walls with Obj Type: Wall
+- Set obstacles (rocks, trees, etc.) with Obj Type: Obstacle
+
+FloorPrefab:
+- FloorMesh needs NodeReferences Script
+    - Default material = GridOutline
+    - Tile Materials = Walkable, unwalkable (needs fixing)
+
+Line Prefab:
+- Empty object with Line Renderer Component
+- Colour can be anything
+
+PlayerObject:
+- UnitController script
+    - Speed is for the Animator component
+- UnitStates script
+    - Variables are used later (presumably)
+    - Moving Speed is set here
