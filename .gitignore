@@ -1,9 +1,5 @@
 # Ignore these folders
 Library
 Logs
-Packages
-ProjectSettings
 Temp
 UserSettings
-# Ignore all meta files
-*.meta
