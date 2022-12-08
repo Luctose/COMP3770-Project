@@ -7,6 +7,7 @@ public class MainMenu : MonoBehaviour
 {
     public Font menuFont;
     GUIStyle noBackground;
+    GUIStyle sliderText;
 
     int screenH;
     int screenW;
@@ -19,9 +20,12 @@ public class MainMenu : MonoBehaviour
     Rect[] m_buttonsRect;
     Rect[] load_buttonsRect;
     Rect settingsButton;
+    Rect audioSlider;
 
     string[] m_levelNames;
     string[] load_levelNames;
+
+    GameObject slider;
     
     // Start is called before the first frame update
     void Start()
@@ -38,6 +42,15 @@ public class MainMenu : MonoBehaviour
         noBackground.fontSize = m_buttonH - m_buttonH/6;
         noBackground.normal.textColor = Color.white;
         noBackground.font = menuFont;
+
+        sliderText = new GUIStyle();
+        sliderText.alignment = TextAnchor.MiddleLeft;
+        sliderText.fontSize = m_buttonH/4;
+        sliderText.normal.textColor = Color.white;
+        sliderText.font = menuFont;
+
+        slider = GameObject.FindWithTag("SettingsPage");
+        slider.SetActive(false);
 
         // =====   MENU BUTTONS   ===== //
         m_buttonsRect = new Rect[m_nbButtons];
@@ -64,6 +77,8 @@ public class MainMenu : MonoBehaviour
         load_levelNames[3] = "Back";
 
         settingsButton = new Rect(m_buttonW/6, (3 * (m_buttonH + m_buttonH/8)) + screenH/16, m_buttonW, m_buttonH);
+        audioSlider = new Rect(m_buttonW/6, (2 * (m_buttonH + m_buttonH/8)) + screenH/16, m_buttonW, m_buttonH);
+
     }
 
     void OnGUI(){
@@ -104,7 +119,8 @@ public class MainMenu : MonoBehaviour
         }
         else if (screen == 2)
         {
-            if(GUI.Button(settingsButton, "Back", noBackground)){screen=0;}
+            slider.SetActive(true);
+            if(GUI.Button(settingsButton, "Back", noBackground)){slider.SetActive(false);screen=0;}
         }
     }
 }
