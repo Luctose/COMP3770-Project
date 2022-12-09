@@ -21,11 +21,7 @@ public class PlayerCamera : MonoBehaviour
     public Vector2 topLeftOfMap; // Top left corner of the current map
     public Vector2 bottomRightOfMap; // Bottom right corner of the current map
 
-    Vector2 bottomLeftOfMap; // These calculated from what's given
-    Vector2 topRightOfMap;
     // Moving using the mouse
-
-    // Moving using the arrow keys
     
     // Start is called before the first frame update
     void Start()
@@ -37,9 +33,6 @@ public class PlayerCamera : MonoBehaviour
         this.transform.position = new Vector3(x_cam, y_cam, z_cam);
         // Set intial ZOOM
         FOV = 60.0f;
-        
-        bottomLeftOfMap.Set(topLeftOfMap.x, bottomRightOfMap.y);
-        topRightOfMap.Set(bottomRightOfMap.x, topLeftOfMap.y);
     }
 
     // Update is called once per frame
@@ -49,24 +42,27 @@ public class PlayerCamera : MonoBehaviour
         // Moving using the mouse
         //if(Input.mousePosition.x)
 
-        // Moving using the arrow keys
-        if(Input.GetKey("w")){
-            this.transform.Translate(0, cam_speed * Time.fixedDeltaTime, 0);
-
-        }else if(Input.GetKey("s")){
-            this.transform.Translate(0, -cam_speed * Time.fixedDeltaTime, 0);
-
-        }if(Input.GetKey("a")){
-            this.transform.Translate(-cam_speed * Time.fixedDeltaTime, 0, 0);
-
-        }else if(Input.GetKey("d")){
-            this.transform.Translate(cam_speed * Time.fixedDeltaTime, 0, 0);
-        }
-
-        // Start block for mousewheel to zoom in and out
+        // Start block for mousewheel to zoom in and out (Do not put in FixedUpdate)
         FOV += Input.GetAxis("Mouse ScrollWheel") * sensitivity;
         FOV = Mathf.Clamp(FOV, minZm, maxZm);
         theCam.fieldOfView = FOV;
         // End
+
+    }
+
+    void FixedUpdate(){
+        // Moving using the arrow keys
+        if(Input.GetKey("w") && this.transform.position.z < topLeftOfMap.y){
+            this.transform.Translate(0, cam_speed * Time.fixedDeltaTime, 0); // The reason this one and the next one are swapping y and z ...
+
+        }else if(Input.GetKey("s") && this.transform.position.z > bottomRightOfMap.y){
+            this.transform.Translate(0, -cam_speed * Time.fixedDeltaTime, 0); // ... Is because the camera is rotated 90 degrees in start()
+
+        }if(Input.GetKey("a") && this.transform.position.x > topLeftOfMap.x){
+            this.transform.Translate(-cam_speed * Time.fixedDeltaTime, 0, 0);
+
+        }else if(Input.GetKey("d") && this.transform.position.x < bottomRightOfMap.x){
+            this.transform.Translate(cam_speed * Time.fixedDeltaTime, 0, 0);
+        }
     }
 }
