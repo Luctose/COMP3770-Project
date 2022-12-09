@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 5735343092740956895}
   m_Layer: 0
   m_Name: PlayerCapsule
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -250,6 +250,7 @@ MonoBehaviour:
   selected: 0
   hasPath: 0
   move: 0
+  hasMoved: 0
   maxSpeed: 6
   movingSpeed: 7
 --- !u!1 &6827907197461093899

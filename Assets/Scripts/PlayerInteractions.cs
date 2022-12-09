@@ -9,7 +9,8 @@ using UnitControl;
 namespace PI{
 	public class PlayerInteractions : MonoBehaviour{
 		// The Unit that the player is currently controlling
-		public UnitController activeUnit;	// Set in Inspector (for now)
+		public UnitController activeUnit;		// Set in Inspector (for now)
+		public GameObject[] playerUnits = null;	// Array of player units
 		
 		public bool hasPath;
 		public bool holdPath;
@@ -26,11 +27,46 @@ namespace PI{
 		void Start(){
 			grid = GridBase.GetInstance();
 			pathFinder = PathfindMaster.GetInstance();
+			// playerUnits = GameObject.FindGameObjectsWithTag("Player");
 		}
 
 		// Update is called once per frame
 		void Update(){
-			// Check if the unit does not have a path already
+			// Left Mouse-click selects a unit for movement
+			if(Input.GetMouseButtonUp(0)){
+				// if(playerUnits == null)
+					playerUnits = GameObject.FindGameObjectsWithTag("Player");
+				
+				GameObject selectedUnit = GetPlayerUnit();
+				// Check that mouse has hit a player unit
+				if(selectedUnit != null){
+					activeUnit = selectedUnit.GetComponent<UnitController>();
+					Debug.Log("activeUnit = " + activeUnit.ToString());
+						
+					/*	// Instead, set a movement flag on each character class (Since they are unique)
+					if(!selectedUnit.GetComponent<UnitController>().HasUnitMoved()){
+						// Unit has not moved yet
+						activeUnit = selectedUnit.GetComponent<UnitController>();
+						Debug.Log("activeUnit = " + activeUnit.ToString());
+						// activeUnit.Select();
+					}
+					else {	// Unit has moved already
+						Debug.Log("Unit has moved already.");
+						selectedUnit = null;
+					}
+					*/
+				}
+				else {	// Nothing was selected
+					if(!activeUnit.GetComponent<UnitController>().IsMoving()){
+						// Remove line visuals and clear the path
+						activeUnit.Deselect();
+						Destroy(line);
+						// line = null;
+						activeUnit = null;
+					}
+				}
+			}
+			// Check if a unit is selected and does not have a path already
 			if(activeUnit){
 				if(!hasPath){
 					// Store node the unit is currently on
@@ -47,9 +83,9 @@ namespace PI{
 						}
 					}
 				}
-				// Left Mouse-click selects the node for movement
+				// Right Mouse-click selects the node for movement
 				// This will stop tracing mouse movements above
-				if(Input.GetMouseButtonUp(0))
+				if(Input.GetMouseButtonUp(1) && !activeUnit.GetComponent<UnitController>().IsMoving())
 					holdPath = !holdPath;
 				// If the node selected is the unit's node
 				if(activeUnit.shortPath.Count < 1)
@@ -102,6 +138,38 @@ namespace PI{
 			activeUnit.EvaluatePath();
 			activeUnit.ResetMovingVariables();
 			hasPath = false;	// Reset flag
+		}
+	
+		// Return the unit that the player has selected
+		public GameObject GetPlayerUnit(){
+			// Based on active Camera's perspective
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			RaycastHit hit;
+			
+			if(Physics.Raycast(ray, out hit, 200)){
+				Debug.Log("Ray hit: " + hit.point.ToString());
+				// Save positions in local context
+				float worldX = hit.point.x;
+				float worldY = hit.point.y;
+				float worldZ = hit.point.z;
+				// Round to int (for easier calculation, finding node)
+				int x = Mathf.RoundToInt(worldX);
+				int y = Mathf.RoundToInt(worldY) + 1;
+				int z = Mathf.RoundToInt(worldZ);
+				
+				Debug.Log("Mouse: " + x + " " + y + " " + z);
+				
+				for(int i = 0; i < playerUnits.Length; i++){
+					Debug.Log("Unit Position: " + playerUnits[i].transform.position.ToString());
+					if(Vector3.Equals(new Vector3(x,y,z), playerUnits[i].transform.position)){
+						// Debug.Log("Unit Found");
+						return playerUnits[i];
+					}
+				}
+			}
+			// If we get here, there is no unit selected
+			// Debug.Log("Unit not found");
+			return null;
 		}
 	}
 }

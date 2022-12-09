@@ -11,6 +11,7 @@ namespace UnitControl{
 		public Vector3 startingPosition;
 		public Node currentNode;
 		public bool movePath;
+		public bool unitHasMoved;
 		
 		int indexPath = 0;
 		// 
@@ -35,10 +36,17 @@ namespace UnitControl{
 
 		// Update is called once per frame
 		void Update(){
+			// Open Inventory on E press
+			// if(Input.GetKeyUp(KeyCode.E)
+				// openInv = true;
+				// OpenInventory();	// Return openInv to false once finished
 			// Space bar confirms unit movement
+			// if(Input.GetKeyUp(KeyCode.Space) && !openInv){
 			if(Input.GetKeyUp(KeyCode.Space)){
-				if(!movePath)
+				// if(!movePath)
+				if(!movePath && !unitHasMoved){
 					movePath = true;
+				}
 			}
 			// Store if unit is moving
 			states.move = movePath;
@@ -50,7 +58,10 @@ namespace UnitControl{
 						indexPath++;
 					}
 					else {
+						// This is the end of the path
 						movePath = false;
+						// this.states.hasMoved = true;
+						// unitHasMoved = true;
 					}
 					// Update nodes for further movement along shortPath
 					currentNode = grid.NodeFromWorldPosition(transform.position);
@@ -85,7 +96,7 @@ namespace UnitControl{
 				targetPosition.y = 1;
 				// Move unit 
 				transform.position = targetPosition;
-				}
+			}
 		}
 		
 		// Determine if the currentPath is the shortest path 
@@ -128,6 +139,37 @@ namespace UnitControl{
 			
 			if(node != null)
 				transform.position = node.worldObject.transform.position;
+		}
+		
+		/*
+		public bool HasUnitMoved(){
+			// return this.states.hasMoved;
+			return unitHasMoved;
+		}
+		*/
+		
+		public bool IsMoving(){
+			// return this.states.move;
+			return states.move;
+		}
+		
+		// Return if unit can be selected
+		public bool Select(){
+			// if(!this.states.hasMoved){
+			if(!unitHasMoved){
+				states.selected = true;
+				// Selection highlight circle thing
+				return true;
+			}
+			else
+				return false;
+		}
+		
+		public void Deselect(){
+			states.selected = false;
+			shortPath.Clear();
+			ResetMovingVariables();
+			// Remove Selection highlight circle thing
 		}
 	}
 }

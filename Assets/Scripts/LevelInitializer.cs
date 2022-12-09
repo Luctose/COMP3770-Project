@@ -52,6 +52,8 @@ namespace LevelControl{
 			int z = unitOffsetZ;
 			for(int i = 0; i < unitCount; i++){
 				Instantiate(unitPrefab, new Vector3(unitOffsetX * i, 1, unitOffsetZ * i), Quaternion.identity);
+				// Add it to a list somewhere for accessing in PlayerInteractions
+				// unitPrefab.tag = "Player";
 			}
 			yield return waitEF;
 		}

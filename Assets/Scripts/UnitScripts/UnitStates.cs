@@ -9,9 +9,10 @@ namespace UnitControl{
 	public class UnitStates : MonoBehaviour{
 		public int team;
 		public int health;
-		public bool selected;
+		public bool selected;	// 
 		public bool hasPath;
 		public bool move;
+		public bool hasMoved;	// If unit has moved in current turn
 		
 		public float maxSpeed = 6;
 		public float movingSpeed;

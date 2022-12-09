@@ -380,10 +380,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lvlObjects:
   - floorIndex: 0
-    objs: []
-  - floorIndex: 0
-    objs: []
-  - floorIndex: 0
+    objs:
+    - {fileID: 975725566}
+    - {fileID: 429862584}
+    - {fileID: 1973406852}
+  - floorIndex: 1
     objs: []
 --- !u!114 &527594233
 MonoBehaviour:
@@ -399,7 +400,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridBasePrefab: {fileID: 1728235027511053540, guid: fffa3e2a80986c640a42055b2274755c, type: 3}
   unitPrefab: {fileID: 5735343092740956902, guid: 27c25f10310af3240b883e4f16c65b42, type: 3}
-  unitCount: 1
+  unitCount: 3
+  unitOffsetX: 3
+  unitOffsetZ: 3
   gridStats:
     maxX: 10
     maxY: 1
