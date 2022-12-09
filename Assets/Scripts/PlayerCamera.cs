@@ -12,6 +12,7 @@ public class PlayerCamera : MonoBehaviour
     public int x_cam = -10;
     public int y_cam = 52;
     public int z_cam = -5;
+    public int cam_speed = 3;
 
     // The Camera
     Camera theCam;
@@ -49,17 +50,17 @@ public class PlayerCamera : MonoBehaviour
         //if(Input.mousePosition.x)
 
         // Moving using the arrow keys
-        if(Input.GetKey("up")){
-            this.transform.Translate(0, 1 * Time.fixedDeltaTime, 0);
+        if(Input.GetKey("w")){
+            this.transform.Translate(0, cam_speed * Time.fixedDeltaTime, 0);
 
-        }else if(Input.GetKey("down")){
-            this.transform.Translate(0, -1 * Time.fixedDeltaTime, 0);
+        }else if(Input.GetKey("s")){
+            this.transform.Translate(0, -cam_speed * Time.fixedDeltaTime, 0);
 
-        }if(Input.GetKey("left")){
-            this.transform.Translate(-1 * Time.fixedDeltaTime, 0, 0);
+        }if(Input.GetKey("a")){
+            this.transform.Translate(-cam_speed * Time.fixedDeltaTime, 0, 0);
 
-        }else if(Input.GetKey("right")){
-            this.transform.Translate(1 * Time.fixedDeltaTime, 0, 0);
+        }else if(Input.GetKey("d")){
+            this.transform.Translate(cam_speed * Time.fixedDeltaTime, 0, 0);
         }
 
         // Start block for mousewheel to zoom in and out
