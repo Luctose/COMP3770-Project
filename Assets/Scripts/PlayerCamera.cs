@@ -43,7 +43,7 @@ public class PlayerCamera : MonoBehaviour
         //if(Input.mousePosition.x)
 
         // Start block for mousewheel to zoom in and out (Do not put in FixedUpdate)
-        FOV += Input.GetAxis("Mouse ScrollWheel") * sensitivity;
+        FOV -= Input.GetAxis("Mouse ScrollWheel") * sensitivity;
         FOV = Mathf.Clamp(FOV, minZm, maxZm);
         theCam.fieldOfView = FOV;
         // End
@@ -53,10 +53,10 @@ public class PlayerCamera : MonoBehaviour
     void FixedUpdate(){
         // Moving using the arrow keys
         if(Input.GetKey("w") && this.transform.position.z < topLeftOfMap.y){
-            this.transform.Translate(0, cam_speed * Time.fixedDeltaTime, 0); // The reason this one and the next one are swapping y and z ...
+            this.transform.Translate(0, cam_speed * Time.fixedDeltaTime, 0);
 
         }else if(Input.GetKey("s") && this.transform.position.z > bottomRightOfMap.y){
-            this.transform.Translate(0, -cam_speed * Time.fixedDeltaTime, 0); // ... Is because the camera is rotated 90 degrees in start()
+            this.transform.Translate(0, -cam_speed * Time.fixedDeltaTime, 0);
 
         }if(Input.GetKey("a") && this.transform.position.x > topLeftOfMap.x){
             this.transform.Translate(-cam_speed * Time.fixedDeltaTime, 0, 0);
