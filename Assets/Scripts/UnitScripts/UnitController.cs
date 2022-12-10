@@ -24,6 +24,8 @@ namespace UnitControl{
 		Vector3 startPos, targetPos;
 		bool updatedPos;
 		
+		public GameObject unitHighlight;	// This is for highlighting movable units
+		public bool highlightFlag;
 		
 		// Start is called before the first frame update
 		void Start(){
@@ -32,22 +34,16 @@ namespace UnitControl{
 			PlaceOnNodeImmediate(startingPosition);
 			
 			currentNode = grid.GetNodeFromVector3(startingPosition);
+			unitHighlight = Instantiate(unitHighlight, transform.position, Quaternion.identity);
 		}
 
 		// Update is called once per frame
 		void Update(){
 			// Open Inventory on E press
-			// if(Input.GetKeyUp(KeyCode.E)
+			// if(selected && Input.GetKeyUp(KeyCode.E)
 				// openInv = true;
-				// OpenInventory();	// Return openInv to false once finished
-			// Space bar confirms unit movement
-			// if(Input.GetKeyUp(KeyCode.Space) && !openInv){
-			if(Input.GetKeyUp(KeyCode.Space)){
-				// if(!movePath)
-				if(!movePath && !unitHasMoved){
-					movePath = true;
-				}
-			}
+				// OpenInventory(this);	// Return openInv to false once finished
+				
 			// Store if unit is moving
 			states.move = movePath;
 			
@@ -74,7 +70,7 @@ namespace UnitControl{
 					updatedPos = true;	// Flag
 				}
 				// Adjust unit animations
-				// This is for animation speed based on distance
+				// Speed based on distance and time
 				float distCover = (Time.time - startTime) * states.movingSpeed;
 				if(fractLength == 0)
 					fractLength = 0.1f;
@@ -96,6 +92,10 @@ namespace UnitControl{
 				targetPosition.y = 1;
 				// Move unit 
 				transform.position = targetPosition;
+			}
+			
+			if(highlightFlag){
+				unitHighlight.transform.position = new Vector3(transform.position.x, 0.1f, transform.position.z);
 			}
 		}
 		
@@ -139,6 +139,12 @@ namespace UnitControl{
 			
 			if(node != null)
 				transform.position = node.worldObject.transform.position;
+		}
+		
+		// This is called from GameSystem
+		public void EnableHighlight(bool flag){
+			unitHighlight.SetActive(flag);
+			highlightFlag = flag;
 		}
 		
 		/*

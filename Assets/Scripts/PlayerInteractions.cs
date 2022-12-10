@@ -21,7 +21,7 @@ namespace PI{
 		// This is for displaying the path using a Line
 		public bool visualizePath;
 		public GameObject lineGO;
-		LineRenderer line;	// Attached to this same object
+		public LineRenderer line;	// Attached to this same object
 		
 		// Start is called before the first frame update
 		void Start(){
@@ -32,41 +32,8 @@ namespace PI{
 
 		// Update is called once per frame
 		void Update(){
-			// Left Mouse-click selects a unit for movement
-			if(Input.GetMouseButtonUp(0)){
-				// if(playerUnits == null)
-					playerUnits = GameObject.FindGameObjectsWithTag("Player");
-				
-				GameObject selectedUnit = GetPlayerUnit();
-				// Check that mouse has hit a player unit
-				if(selectedUnit != null){
-					activeUnit = selectedUnit.GetComponent<UnitController>();
-					Debug.Log("activeUnit = " + activeUnit.ToString());
-						
-					/*	// Instead, set a movement flag on each character class (Since they are unique)
-					if(!selectedUnit.GetComponent<UnitController>().HasUnitMoved()){
-						// Unit has not moved yet
-						activeUnit = selectedUnit.GetComponent<UnitController>();
-						Debug.Log("activeUnit = " + activeUnit.ToString());
-						// activeUnit.Select();
-					}
-					else {	// Unit has moved already
-						Debug.Log("Unit has moved already.");
-						selectedUnit = null;
-					}
-					*/
-				}
-				else {	// Nothing was selected
-					if(!activeUnit.GetComponent<UnitController>().IsMoving()){
-						// Remove line visuals and clear the path
-						activeUnit.Deselect();
-						Destroy(line);
-						// line = null;
-						activeUnit = null;
-					}
-				}
-			}
 			// Check if a unit is selected and does not have a path already
+			// Active Unit is updated by GameSystem*
 			if(activeUnit){
 				if(!hasPath){
 					// Store node the unit is currently on
@@ -171,5 +138,11 @@ namespace PI{
 			// Debug.Log("Unit not found");
 			return null;
 		}
+		
+		/*
+		public void DestroyLineObject(){
+			Destroy(line);
+		}
+		*/
 	}
 }
