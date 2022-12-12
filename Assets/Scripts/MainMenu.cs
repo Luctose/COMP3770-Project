@@ -79,6 +79,7 @@ public class MainMenu : MonoBehaviour
         settingsButton = new Rect(m_buttonW/6, (3 * (m_buttonH + m_buttonH/8)) + screenH/16, m_buttonW, m_buttonH);
         audioSlider = new Rect(m_buttonW/6, (2 * (m_buttonH + m_buttonH/8)) + screenH/16, m_buttonW, m_buttonH);
 
+        AudioListener.volume = PlayerPrefs.GetFloat("volumeFloat", 1f);
     }
 
     void OnGUI(){
@@ -120,7 +121,7 @@ public class MainMenu : MonoBehaviour
         else if (screen == 2)
         {
             slider.SetActive(true);
-            if(GUI.Button(settingsButton, "Back", noBackground)){slider.SetActive(false);screen=0;}
+            if(GUI.Button(settingsButton, "Back", noBackground)){PlayerPrefs.Save();slider.SetActive(false);screen=0;}
         }
     }
 }

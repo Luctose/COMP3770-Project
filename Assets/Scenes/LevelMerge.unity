@@ -506,7 +506,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &169290431
 RectTransform:
   m_ObjectHideFlags: 0
@@ -744,7 +744,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 202505871}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1948919162}
+        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
+        m_MethodName: pageSwap
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 169290430}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &202505871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1689,7 +1701,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &403274263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2323,8 +2335,8 @@ RectTransform:
   m_Father: {fileID: 1983868365}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2616,7 +2628,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7869,7 +7881,7 @@ GameObject:
   - component: {fileID: 1696422432}
   - component: {fileID: 1696422431}
   m_Layer: 5
-  m_Name: VolumeUI
+  m_Name: VolumeSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7912,9 +7924,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43560710e4a036c49808e54efe8b1a6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ambience: {fileID: 0}
-  fire: {fileID: 0}
-  kPerry: {fileID: 0}
 --- !u!114 &1696422432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10222,7 +10231,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Quit
+  m_Text: Back
 --- !u!222 &2046335893
 CanvasRenderer:
   m_ObjectHideFlags: 0
