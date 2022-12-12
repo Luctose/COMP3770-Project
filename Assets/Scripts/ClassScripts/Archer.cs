@@ -7,6 +7,7 @@ public class Archer : Character
     /* Constructor
     */
     public Archer() : base(){
+        className = "Archer";
         maxHp = 20;
         hp = maxHp;
         movement = 4;

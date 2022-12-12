@@ -7,6 +7,7 @@ public class Swordsman : Character
     /* Constructor
     */
     public Swordsman() : base(){
+        className = "Swordsman";
         maxHp = 20;
         hp = maxHp;
         movement = 5;

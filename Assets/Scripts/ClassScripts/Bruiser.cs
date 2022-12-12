@@ -7,6 +7,7 @@ public class Bruiser : Character
     /* Constructor
     */
     public Bruiser() : base(){
+        className = "Bruiser";
         maxHp = 25;
         hp = maxHp;
         movement = 3;

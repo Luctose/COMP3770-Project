@@ -7,6 +7,7 @@ public class Mage : Character
     /* Constructor
     */
     public Mage() : base(){
+        className = "Mage";
         maxHp = 20;
         hp = maxHp;
         movement = 4;
