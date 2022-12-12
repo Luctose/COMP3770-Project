@@ -9,7 +9,9 @@ using UnitControl;
 namespace PI{
 	public class PlayerInteractions : MonoBehaviour{
 		// The Unit that the player is currently controlling
-		public UnitController activeUnit;	// Set in Inspector (for now)
+		public UnitController activeUnit;		// Set in Inspector (for now)
+		public GameObject[] playerUnits = null;	// Array of player units
+		public Camera camera;
 		
 		public bool hasPath;
 		public bool holdPath;
@@ -20,17 +22,19 @@ namespace PI{
 		// This is for displaying the path using a Line
 		public bool visualizePath;
 		public GameObject lineGO;
-		LineRenderer line;	// Attached to this same object
+		public LineRenderer line;	// Attached to this same object
 		
 		// Start is called before the first frame update
 		void Start(){
 			grid = GridBase.GetInstance();
 			pathFinder = PathfindMaster.GetInstance();
+			// playerUnits = GameObject.FindGameObjectsWithTag("Player");
 		}
 
 		// Update is called once per frame
 		void Update(){
-			// Check if the unit does not have a path already
+			// Check if a unit is selected and does not have a path already
+			// Active Unit is updated by GameSystem*
 			if(activeUnit){
 				if(!hasPath){
 					// Store node the unit is currently on
@@ -47,9 +51,9 @@ namespace PI{
 						}
 					}
 				}
-				// Left Mouse-click selects the node for movement
+				// Right Mouse-click selects the node for movement
 				// This will stop tracing mouse movements above
-				if(Input.GetMouseButtonUp(0))
+				if(Input.GetMouseButtonUp(1) && !activeUnit.GetComponent<UnitController>().IsMoving())
 					holdPath = !holdPath;
 				// If the node selected is the unit's node
 				if(activeUnit.shortPath.Count < 1)
@@ -76,7 +80,8 @@ namespace PI{
 		Node FindNodeFromMousePosition(){
 			Node retVal = null;
 			// Based on active Camera's perspective
-			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			// Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
 			// If the cast collides with something
 			if(Physics.Raycast(ray, out hit, 200)){
@@ -103,5 +108,43 @@ namespace PI{
 			activeUnit.ResetMovingVariables();
 			hasPath = false;	// Reset flag
 		}
+	
+		// Return the unit that the player has selected
+		public GameObject GetPlayerUnit(){
+			// Based on active Camera's perspective
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			RaycastHit hit;
+			
+			if(Physics.Raycast(ray, out hit, 200)){
+				Debug.Log("Ray hit: " + hit.point.ToString());
+				// Save positions in local context
+				float worldX = hit.point.x;
+				float worldY = hit.point.y;
+				float worldZ = hit.point.z;
+				// Round to int (for easier calculation, finding node)
+				int x = Mathf.RoundToInt(worldX);
+				int y = Mathf.RoundToInt(worldY) + 1;
+				int z = Mathf.RoundToInt(worldZ);
+				
+				Debug.Log("Mouse: " + x + " " + y + " " + z);
+				
+				for(int i = 0; i < playerUnits.Length; i++){
+					Debug.Log("Unit Position: " + playerUnits[i].transform.position.ToString());
+					if(Vector3.Equals(new Vector3(x,y,z), playerUnits[i].transform.position)){
+						// Debug.Log("Unit Found");
+						return playerUnits[i];
+					}
+				}
+			}
+			// If we get here, there is no unit selected
+			// Debug.Log("Unit not found");
+			return null;
+		}
+		
+		/*
+		public void DestroyLineObject(){
+			Destroy(line);
+		}
+		*/
 	}
 }

@@ -115,7 +115,7 @@ MonoBehaviour:
   tileMaterials:
   - {fileID: 2100000, guid: 3332edf890336cd4190dafd8953b354a, type: 2}
   - {fileID: 2100000, guid: c562a04832e490745b918cf59422629d, type: 2}
-  defaultMaterial: {fileID: 2100000, guid: c2d5ec50ccf10ce40a5c50cde87196a1, type: 2}
+  defaultMaterial: {fileID: 2100000, guid: 8c18fa0b475bd2940ae28ce2994b2fe3, type: 2}
 --- !u!1 &1728235027511053540
 GameObject:
   m_ObjectHideFlags: 0

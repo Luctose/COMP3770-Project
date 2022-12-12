@@ -11,6 +11,7 @@ namespace UnitControl{
 		public Vector3 startingPosition;
 		public Node currentNode;
 		public bool movePath;
+		public bool unitHasMoved;
 		
 		int indexPath = 0;
 		// 
@@ -23,6 +24,8 @@ namespace UnitControl{
 		Vector3 startPos, targetPos;
 		bool updatedPos;
 		
+		public GameObject unitHighlight;	// This is for highlighting movable units
+		public bool highlightFlag;
 		
 		// Start is called before the first frame update
 		void Start(){
@@ -31,15 +34,16 @@ namespace UnitControl{
 			PlaceOnNodeImmediate(startingPosition);
 			
 			currentNode = grid.GetNodeFromVector3(startingPosition);
+			unitHighlight = Instantiate(unitHighlight, transform.position, Quaternion.identity);
 		}
 
 		// Update is called once per frame
 		void Update(){
-			// Space bar confirms unit movement
-			if(Input.GetKeyUp(KeyCode.Space)){
-				if(!movePath)
-					movePath = true;
-			}
+			// Open Inventory on E press
+			// if(selected && Input.GetKeyUp(KeyCode.E)
+				// openInv = true;
+				// OpenInventory(this);	// Return openInv to false once finished
+				
 			// Store if unit is moving
 			states.move = movePath;
 			
@@ -50,7 +54,10 @@ namespace UnitControl{
 						indexPath++;
 					}
 					else {
+						// This is the end of the path
 						movePath = false;
+						// this.states.hasMoved = true;
+						// unitHasMoved = true;
 					}
 					// Update nodes for further movement along shortPath
 					currentNode = grid.NodeFromWorldPosition(transform.position);
@@ -63,7 +70,7 @@ namespace UnitControl{
 					updatedPos = true;	// Flag
 				}
 				// Adjust unit animations
-				// This is for animation speed based on distance
+				// Speed based on distance and time
 				float distCover = (Time.time - startTime) * states.movingSpeed;
 				if(fractLength == 0)
 					fractLength = 0.1f;
@@ -85,7 +92,11 @@ namespace UnitControl{
 				targetPosition.y = 1;
 				// Move unit 
 				transform.position = targetPosition;
-				}
+			}
+			
+			if(highlightFlag){
+				unitHighlight.transform.position = new Vector3(transform.position.x, 0.1f, transform.position.z);
+			}
 		}
 		
 		// Determine if the currentPath is the shortest path 
@@ -128,6 +139,43 @@ namespace UnitControl{
 			
 			if(node != null)
 				transform.position = node.worldObject.transform.position;
+		}
+		
+		// This is called from GameSystem
+		public void EnableHighlight(bool flag){
+			unitHighlight.SetActive(flag);
+			highlightFlag = flag;
+		}
+		
+		/*
+		public bool HasUnitMoved(){
+			// return this.states.hasMoved;
+			return unitHasMoved;
+		}
+		*/
+		
+		public bool IsMoving(){
+			// return this.states.move;
+			return states.move;
+		}
+		
+		// Return if unit can be selected
+		public bool Select(){
+			// if(!this.states.hasMoved){
+			if(!unitHasMoved){
+				states.selected = true;
+				// Selection highlight circle thing
+				return true;
+			}
+			else
+				return false;
+		}
+		
+		public void Deselect(){
+			states.selected = false;
+			shortPath.Clear();
+			ResetMovingVariables();
+			// Remove Selection highlight circle thing
 		}
 	}
 }

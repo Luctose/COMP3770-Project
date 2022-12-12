@@ -5,5 +5,3 @@ Packages
 ProjectSettings
 Temp
 UserSettings
-# Ignore all meta files
-*.meta
