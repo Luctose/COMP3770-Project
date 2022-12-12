@@ -5,22 +5,15 @@ using UnityEngine.UI;
 
 public class VolumeSlider : MonoBehaviour
 {
-    public AudioSource ambience;
-    public AudioSource fire;
-    public AudioSource kPerry;
-
-    float ambVol;
-    float fireVol;
-    float perryVol;
+    //public GameObject listenerObject;
+    //AudioListener listener; 
 
     Slider slider;
 
     void Start()
     {
+        //listener = listenerObject.GetComponent<AudioListener>();
         slider = gameObject.GetComponent<Slider>();
-        ambVol = ambience.volume;
-        fireVol = fire.volume;
-        perryVol = kPerry.volume;
     }
 
     // Start is called before the first frame update
@@ -31,8 +24,6 @@ public class VolumeSlider : MonoBehaviour
 
     void changeVolume()
     {
-        ambience.volume = ambVol * slider.value;
-        fire.volume = fireVol * slider.value;
-        kPerry.volume = perryVol * slider.value;
+        AudioListener.volume = slider.value;
     }
 }
