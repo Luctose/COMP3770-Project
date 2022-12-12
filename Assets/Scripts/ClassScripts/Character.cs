@@ -5,23 +5,51 @@ using UnityEngine;
 public class Character
 {
     // Class info
-    private string className; // Name
-    private string classDesc; // Description
+    protected string className; // Name
+    protected string classDesc; // Description
 
     // Stats
-    private int level; // Character level
-    private int exp; // Experience 
-    private int hp; // Hit-points
-    private int movement; // Map spaces a unit can move
-    private int speed; // Combat speed
-    private int attackDamage; // Combat physical attack
-    private int magicDamage; // Combat magic attack
-    private int physicalResistance; // Combat physical defense
-    private int magicResistance; // Combat magic defense
+    protected int level; // Character level
+    protected int exp; // Experience 
+    protected int expCap; // Experience to hit for next level
+    protected int maxHp; // Max hit-points
+    protected int hp; // Current hit-points
+    protected int movement; // Map spaces a unit can move
+    protected int range; // Attack range
+    protected int speed; // Combat speed
+    protected int attackDamage; // Combat physical attack
+    protected int magicDamage; // Combat magic attack
+    protected int physicalResistance; // Combat physical defense
+    protected int magicResistance; // Combat magic defense
 
     // Other character attributes
-    // private Inventory characterInventory; <-- Commented out as the Inventory class needs to be made first
-    // private Item Equipped; <-- Same as above
+    // protected Inventory characterInventory; <-- Commented out as the Inventory class needs to be made first
+    // protected Item Equipped; <-- Same as above
+
+    // Base Constructor
+    /* Constructor initializes values to minimum values
+     * Does not include combat stats (Character base class only)
+     */
+    public Character(){
+        level = 1;
+        exp = 0;
+        expCap = 100;
+    }
+
+    /* Copy constructor
+     */
+    public Character(Character copy){
+        level = copy.level;
+        exp = copy.exp;
+        expCap = copy.expCap;
+        hp = copy.hp;
+        movement = copy.movement;
+        speed = copy.speed;
+        attackDamage = copy.attackDamage;
+        magicDamage = copy.magicDamage;
+        physicalResistance = copy.physicalResistance;
+        magicResistance = copy.magicResistance;
+    }
 
     // Getters and Setters
     public string ClassName{
@@ -77,5 +105,32 @@ public class Character
     public int MagicResistance{
         get{return magicResistance;}
         set{magicResistance = value;}
+    }
+
+    /* This method levels up a characters stats and resets thier experience points
+    */
+    public bool LevelUp(){
+        // Check if Character has enough exp
+        if(exp < expCap){
+            return false; // Exit function did not level up
+        }
+
+        // Increase level
+        ++level;
+        exp = 0; // Reset experience points
+        expCap = (int)(expCap * 1.1); // Make the next level harder
+
+        // Return level up successful
+        return true;
+
+        // Increase stats
+        // (Does not occur in base class child calls base.LevelUp())
+    }
+
+    /* The character will gain exp
+     * Params: The enemy defeated
+     */
+    public void GainExp(Character enemy){
+        exp += (20 * enemy.Level) / this.Level;
     }
 }
