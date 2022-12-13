@@ -22,6 +22,8 @@ public class CombatSystem : MonoBehaviour{
 	
     // Running method for this class
 	public static void RunCombatSystem(ref Character attacker, ref Character defender){
+		// Debug.Log("Attacker Damage " + attacker.MagicDamage);
+		// Debug.Log("Defender Damage: " + defender.AttackDamage);
 		// NOTE: Defender can counter attack once!
 		int attackFreq;
 
@@ -34,19 +36,28 @@ public class CombatSystem : MonoBehaviour{
 
 		int AtkDmg = GetDamageOfUnit(ref attacker);
 		int DefDmg = GetDamageOfUnit(ref defender);
-
-		AtkDmg = ApplyDefense(ref attacker, ref defender, AtkDmg);
-		DefDmg = ApplyDefense(ref defender, ref attacker, DefDmg);
 		
-		for(int i = 0; i < attackFreq; ++i){
+		// Debug.Log("AtkDmg: " + AtkDmg);
+		// Debug.Log("DefDmg: " + DefDmg);
+
+		// AtkDmg = ApplyDefense(ref attacker, ref defender, AtkDmg);
+		// DefDmg = ApplyDefense(ref defender, ref attacker, DefDmg);
+		
+		// Debug.Log("AtkDmg after Defense: " + AtkDmg);
+		Debug.Log("Do attack. " + attackFreq);
+		
+		for(int i = 0; i < 2; ++i){
 			defender.Hp -= AtkDmg;
 			// Defender Counter attack
 			if (i == 0)		// Defender counterattack (only once)
 				attacker.Hp -= DefDmg;
 		}
+		
+		Debug.Log("Attacker HP: " + attacker.Hp);
+		Debug.Log("Defender HP: " + defender.Hp);
 		// May or may not need to Update data storage
-		// data.HasDied(ref attacker, ref defender);
 		if(attacker.Hp <= 0){
+			data.HasDied(ref attacker);
 			Debug.Log("Attacker has died: " + attacker.Hp);
 		}
 		if (defender.Hp <= 0){
@@ -59,7 +70,8 @@ public class CombatSystem : MonoBehaviour{
 		// unit.Equipped.Type needed aswell to see if attacking with physical or magic
 
 		if(true/* unit.Equipped.Type == "physical" */){
-			return unit.AttackDamage + (10/*unit.Equipped.Damage*/ / 10);
+			// return unit.AttackDamage + (10/*unit.Equipped.Damage*/ / 10);
+			return 10;
 		}else{
 			return unit.MagicDamage + (10/*unit.Equipped.Damage*/ / 10);
 		}

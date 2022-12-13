@@ -5,20 +5,27 @@ using UnityEngine;
 namespace LevelControl{
 	public class LevelInitializer : MonoBehaviour{
 		public GameObject gridBasePrefab;	// Level Model prefab (?) Should be main floor and boundary walls
-		public GameObject playerPrefab;		// Player controlled unit to render
-		public GameObject enemyPrefab;		// Enemy unit to render
+		
+		public GameObject mainCharacter;		// Player controlled unit to render
+		public GameObject secondCharacter;		// Player controlled unit to render
+		public GameObject thirdCharacter;		// Player controlled unit to render
+		public GameObject enemy1;			// Enemy unit to render
+		public GameObject enemy2;			// Enemy unit to render
+		public GameObject enemyBoss;		// Enemy unit to render
 		
 		public GameObject[] playerTeamPrefabs;
 		public GameObject[] enemyTeamPrefabs;
-		public int playerCount;	// Number of units for player to control
-		public int enemyCount;	// Number of units for player to control
+		int playerCount = 3;		// Number of units for player to control
+		int enemyCount = 3;		// Number of units for player to control
 		
+		/*
 		public int playerOffsetX;
 		public int playerOffsetZ;
 		public int enemyStartX;
 		public int enemyStartZ;
 		public int enemyOffsetX;
 		public int enemyOffsetZ;
+		*/
 		
 		private WaitForEndOfFrame waitEF;	// Allows sync of threads
 		
@@ -59,6 +66,17 @@ namespace LevelControl{
 		
 		// Clones of unit prefab are added to 3D world
 		IEnumerator CreateUnits(){
+			// Hard-set the Player and Enemy units
+			// Instantiate(playerPrefab, new Vector3(unitOffsetX * i, 1, unitOffsetZ * i), Quaternion.identity);
+			playerTeamPrefabs[0] = Instantiate(mainCharacter, new Vector3(0, 1, 0), Quaternion.identity);
+			playerTeamPrefabs[1] = Instantiate(secondCharacter, new Vector3(6, 1, 6), Quaternion.identity);
+			playerTeamPrefabs[2] = Instantiate(thirdCharacter, new Vector3(10, 1, 6), Quaternion.identity);
+			
+			enemyTeamPrefabs[0] = Instantiate(enemy1, new Vector3(12, 1, 12), Quaternion.identity);
+			enemyTeamPrefabs[1] = Instantiate(enemy2, new Vector3(2, 1, 30), Quaternion.identity);
+			enemyTeamPrefabs[2] = Instantiate(enemyBoss, new Vector3(10, 1, 44), Quaternion.identity);
+			
+			/*
 			// int x = unitOffsetX;
 			// int z = unitOffsetZ;
 			// int i;
@@ -73,6 +91,7 @@ namespace LevelControl{
 				enemyTeamPrefabs[i] = Instantiate(enemyPrefab, new Vector3(enemyStartX + (enemyOffsetX * i), 
 					1, enemyStartX + (enemyOffsetZ * i)), Quaternion.identity);
 			}
+			*/
 			yield return waitEF;
 		}
 		

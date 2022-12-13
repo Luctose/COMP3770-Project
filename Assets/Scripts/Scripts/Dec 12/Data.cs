@@ -78,19 +78,55 @@ public class Data : MonoBehaviour{
 	}
 	
 	// A character has died
-	public void HasDied(ref Character attacker, ref Character defender){
-		/*
-		if(attacker.Hp <= 0){
-			Debug.Log("Attacker has died.");
+	public void HasDied(ref Character ded){
+		if(ded == ahagan){
+			Debug.Log("Game Over");
 		}
-		if (defender.Hp <= 0){
-			Debug.Log("Defender has died.");
+		else if(ded == secondCharacter){
+			secondCharacter = null;
+		}
+		else if(ded == thirdCharacter){
+			thirdCharacter = null;
+		}
+		else if(ded == swordEnemy){
+			swordEnemy = null;
+		}
+		else if(ded == axeEnemy){
+			axeEnemy = null;
+		}
+		else if(ded == lanceEnemy){
+			lanceEnemy = null;
+		}
+		
+		/*
+		switch(ded){
+			case ahagan:
+				Debug.Log("Agahan has died.");
+				// Game over!
+				break;
+			case secondCharacter:
+				Debug.Log("Second Char has died.");
+				secondCharacter = null;		// Remove from storage
+				// Destroy(deadChar);
+				break;
+			case thirdCharacter:
+				Debug.Log("Third Char has died.");
+				thirdCharacter = null;		// Remove from storage
+				break;
+			case swordEnemy:
+				swordEnemy = null;
+				break;
+			case axeEnemy:
+				axeEnemy = null;
+				break;
+			case lanceEnemy:
+				lanceEnemy = null;
+				break;
+			default:
+				Debug.Log("Error: HasDied = Unknown");
+				break;
 		}
 		*/
-		
-		Debug.Log("Attacker HP: " + attacker.Hp);
-		Debug.Log("Defender HP: " + defender.Hp);
-		// Destroy(deadChar);
 	}
 	
 	// Setter/Getter (More cheese)
