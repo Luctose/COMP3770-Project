@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Data : MonoBehaviour{
+	// Keep a single instance of the DataStorage
+	public static Data Instance;
 	// The base class for all characters 
 	// public Character character;
 	public Mage ahagan;		// Main Character
@@ -15,10 +17,21 @@ public class Data : MonoBehaviour{
 	public Bruiser axeEnemy;
 	public Soldier lanceEnemy;
 	
+	public Character selectedUnit;
+	
     // Start is called before the first frame update
     void Start(){
+		// Singleton
+		if (Instance != null){
+			Destroy(gameObject);
+			return;
+		}
+		
+		Instance = this;
         Object.DontDestroyOnLoad(this);
 		// character = GetComponent
+		
+		selectedUnit = null;
 		
 		InitializePlayerTeam();
 		InitializeEnemyTeam();
@@ -63,10 +76,39 @@ public class Data : MonoBehaviour{
 	}
 	
 	// A character has died
-	public void HasDied(GameObject deadChar){
+	public void HasDied(ref Character attacker, ref Character defender){
+		if(attacker.Hp <= 0){
+			Debug.Log("Attacker has died.");
+		}
+		if (defender.Hp <= 0){
+			Debug.Log("Defender has died.");
+		}
 		
-		
-		Debug.Log(deadChar + " has died");
-		Destroy(deadChar);
+		Debug.Log("Attacker HP: " + attacker.Hp);
+		Debug.Log("Defender HP: " + defender.Hp);
+		// Destroy(deadChar);
+	}
+	
+	// Setter/Getter (More cheese)
+	public void SetSelectedUnit(int i){
+		switch (i){
+			case 0:
+				selectedUnit = ahagan;
+				break;
+			case 1:
+				selectedUnit = secondCharacter;
+				break;
+			case 2:
+				selectedUnit = thirdCharacter;
+				break;
+			default:
+				selectedUnit = null;
+				Debug.Log("Error: Data.SetSelectedUnit");
+				break;
+		}
+	}
+	
+	public Character GetSelectedUnit(){
+		return selectedUnit;
 	}
 }
