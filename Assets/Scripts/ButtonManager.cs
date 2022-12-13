@@ -23,7 +23,7 @@ public class ButtonManager : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void quit(){SceneManager.LoadScene("NewMenu");}
+    public void quit(){SceneManager.LoadScene("Main Menu");}
 
     public void saveGame(){//CODE FOR SAVING DATA
     }
