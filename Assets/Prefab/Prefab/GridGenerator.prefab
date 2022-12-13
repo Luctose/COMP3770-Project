@@ -1,0 +1,127 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7668259689996132681
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7668259689996132685}
+  - component: {fileID: 7668259689996132684}
+  - component: {fileID: 7668259689996132687}
+  - component: {fileID: 7668259689996132686}
+  - component: {fileID: 7668259689996132674}
+  m_Layer: 0
+  m_Name: GridGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7668259689996132685
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7668259689996132681}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 91.5, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7668259689996132684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7668259689996132681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fbf6acd5d0ec8f4e98c1b567eda6cad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridBasePrefab: {fileID: 1041709421240350310, guid: 046ac3f353e434c4fb945e7dd12eaa55, type: 3}
+  mainCharacter: {fileID: 5735343092740956902, guid: 27c25f10310af3240b883e4f16c65b42, type: 3}
+  secondCharacter: {fileID: 5735343092740956902, guid: 27c25f10310af3240b883e4f16c65b42, type: 3}
+  thirdCharacter: {fileID: 5735343092740956902, guid: 27c25f10310af3240b883e4f16c65b42, type: 3}
+  enemy1: {fileID: 6252387438133075818, guid: 7509210b36ce3124b80adee4a4a95ef7, type: 3}
+  enemy2: {fileID: 6252387438133075818, guid: 7509210b36ce3124b80adee4a4a95ef7, type: 3}
+  enemyBoss: {fileID: 6252387438133075818, guid: 7509210b36ce3124b80adee4a4a95ef7, type: 3}
+  playerTeamPrefabs: []
+  enemyTeamPrefabs: []
+  gridStats:
+    maxX: 10
+    maxY: 1
+    maxZ: 10
+    offsetX: 2
+    offsetY: 1
+    offsetZ: 2
+--- !u!114 &7668259689996132687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7668259689996132681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94fe98192526ff9469daff37ace7a2b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lvlObjects:
+  - floorIndex: 0
+    objs: []
+  - floorIndex: 0
+    objs: []
+  - floorIndex: 0
+    objs: []
+--- !u!114 &7668259689996132686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7668259689996132681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3a79a3068747b143a61a2adc339fda2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeUnit: {fileID: 0}
+  playerUnits: []
+  camera: {fileID: 0}
+  hasPath: 0
+  holdPath: 0
+  visualizePath: 1
+  lineGO: {fileID: 8669650175949127714, guid: 69130224badb31546a10ae37aaf6fd0d, type: 3}
+  line: {fileID: 0}
+--- !u!114 &7668259689996132674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7668259689996132681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70abd4a0e6616d846887fa80b5b8d704, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camera: {fileID: 0}
+  data: {fileID: 0}
+  playerTurn: 0
+  activeCharacter: {fileID: 0}
+  playerTeamManager: []
+  playerHasMoved: 
+  playerHasAttacked: 
+  playerTeamSize: 0
+  enemyTeamManager: []
+  enemyHasMoved: 
+  enemyTeamSize: 0
