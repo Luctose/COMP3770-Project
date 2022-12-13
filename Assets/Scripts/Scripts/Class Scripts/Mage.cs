@@ -2,19 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mage : Character{
+public class Mage : Character
+{
     /* Constructor
     */
     public Mage() : base(){
+        className = "Mage";
         maxHp = 20;
         hp = maxHp;
         movement = 4;
         range = 2;
         speed = 1;
         attackDamage = 0;
-        magicDamage = 2;
+        magicDamage = 3;
         physicalResistance = 1;
         magicResistance = 2;
+
+        equipped = new Weapon("Magic", 10);
     }
 
     new public bool LevelUp(){
@@ -28,7 +32,6 @@ public class Mage : Character{
             ++physicalResistance;
             ++magicResistance;
             // Level up successful
-			Debug.Log(this.ClassName + " has levelled up!");
             return true;
         }
 

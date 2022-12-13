@@ -7,6 +7,7 @@ public class Soldier : Character
     /* Constructor
     */
     public Soldier() : base(){
+        className = "Soldier";
         maxHp = 20;
         hp = maxHp;
         movement = 4;
@@ -16,6 +17,8 @@ public class Soldier : Character
         magicDamage = 0;
         physicalResistance = 3;
         magicResistance = 2;
+
+        equipped = new Weapon("Physical", 10);
     }
 
     new public bool LevelUp(){

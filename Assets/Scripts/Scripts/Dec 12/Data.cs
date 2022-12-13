@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Data : MonoBehaviour{
 	// Keep a single instance of the DataStorage
 	public static Data Instance;
+	public GameSystem gameSystem;
 	// The base class for all characters 
 	// public Character character;
 	public Mage ahagan;		// Main Character
@@ -81,52 +82,28 @@ public class Data : MonoBehaviour{
 	public void HasDied(ref Character ded){
 		if(ded == ahagan){
 			Debug.Log("Game Over");
+			// Restart mission
 		}
 		else if(ded == secondCharacter){
 			secondCharacter = null;
+			gameSystem.UnitHasDied(1);
 		}
 		else if(ded == thirdCharacter){
 			thirdCharacter = null;
+			gameSystem.UnitHasDied(2);
 		}
 		else if(ded == swordEnemy){
 			swordEnemy = null;
+			gameSystem.UnitHasDied(3);
 		}
 		else if(ded == axeEnemy){
 			axeEnemy = null;
+			gameSystem.UnitHasDied(4);
 		}
 		else if(ded == lanceEnemy){
 			lanceEnemy = null;
+			gameSystem.UnitHasDied(5);
 		}
-		
-		/*
-		switch(ded){
-			case ahagan:
-				Debug.Log("Agahan has died.");
-				// Game over!
-				break;
-			case secondCharacter:
-				Debug.Log("Second Char has died.");
-				secondCharacter = null;		// Remove from storage
-				// Destroy(deadChar);
-				break;
-			case thirdCharacter:
-				Debug.Log("Third Char has died.");
-				thirdCharacter = null;		// Remove from storage
-				break;
-			case swordEnemy:
-				swordEnemy = null;
-				break;
-			case axeEnemy:
-				axeEnemy = null;
-				break;
-			case lanceEnemy:
-				lanceEnemy = null;
-				break;
-			default:
-				Debug.Log("Error: HasDied = Unknown");
-				break;
-		}
-		*/
 	}
 	
 	// Setter/Getter (More cheese)

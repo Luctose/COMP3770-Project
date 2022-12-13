@@ -73,8 +73,11 @@ namespace LevelControl{
 			playerTeamPrefabs[2] = Instantiate(thirdCharacter, new Vector3(10, 1, 6), Quaternion.identity);
 			
 			enemyTeamPrefabs[0] = Instantiate(enemy1, new Vector3(12, 1, 12), Quaternion.identity);
-			enemyTeamPrefabs[1] = Instantiate(enemy2, new Vector3(2, 1, 30), Quaternion.identity);
-			enemyTeamPrefabs[2] = Instantiate(enemyBoss, new Vector3(10, 1, 44), Quaternion.identity);
+			// enemyTeamPrefabs[1] = Instantiate(enemy2, new Vector3(2, 1, 30), Quaternion.identity);
+			// enemyTeamPrefabs[2] = Instantiate(enemyBoss, new Vector3(10, 1, 44), Quaternion.identity);
+			enemyTeamPrefabs[1] = Instantiate(enemyBoss, new Vector3(10, 1, 44), Quaternion.identity);
+			enemyTeamPrefabs[2] = Instantiate(enemy2, new Vector3(2, 1, 30), Quaternion.identity);
+			// Swap indexes bcuz of how enemy units are destoryed upon death
 			
 			/*
 			// int x = unitOffsetX;

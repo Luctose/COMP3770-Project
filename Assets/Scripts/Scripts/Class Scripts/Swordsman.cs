@@ -7,6 +7,7 @@ public class Swordsman : Character
     /* Constructor
     */
     public Swordsman() : base(){
+        className = "Swordsman";
         maxHp = 20;
         hp = maxHp;
         movement = 5;
@@ -16,6 +17,8 @@ public class Swordsman : Character
         magicDamage = 0;
         physicalResistance = 1;
         magicResistance = 1;
+
+        equipped = new Weapon("Physical", 10);
     }
 
     new public bool LevelUp(){

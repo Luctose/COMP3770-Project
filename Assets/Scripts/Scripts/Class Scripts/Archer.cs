@@ -7,15 +7,18 @@ public class Archer : Character
     /* Constructor
     */
     public Archer() : base(){
+        className = "Archer";
         maxHp = 20;
         hp = maxHp;
         movement = 4;
         range = 3;
         speed = 2;
-        attackDamage = 2;
+        attackDamage = 3;
         magicDamage = 0;
         physicalResistance = 2;
         magicResistance = 1;
+
+        equipped = new Weapon("Physical", 10);
     }
 
     new public bool LevelUp(){

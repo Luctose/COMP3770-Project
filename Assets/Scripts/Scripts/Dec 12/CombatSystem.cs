@@ -6,14 +6,6 @@ using UnityEngine;
 public class CombatSystem : MonoBehaviour{
 	// Get class instances
 	public static Data data;
-	// Attacker Scripts & Stats
-	// int attackerHP, attackerDamage, attackerDefense, attackerSpeed;
-	// Defender Scripts & Stats
-	// int defenderHP, defenderDamage, defenderDefense, defenderSpeed;
-	// Weapons equipped
-	// bool magic;
-	// int attackerWeaponDMG, attackerWeaponSpeed, defenderWeaponDMG, defenderWeaponSpeed;
-	// Animation stuff
 	
 	void Awake(){
 		// Initialize scripts
@@ -30,8 +22,10 @@ public class CombatSystem : MonoBehaviour{
 		// Not going to violate math
 		if(defender.Speed == 0){
 			attackFreq = 2;
-		}else{
+		}else if(attacker.Speed > defender.Speed){
 			attackFreq = attacker.Speed / defender.Speed;	// Defender can only counterattack once
+		}else{
+			attackFreq = 1;
 		}
 
 		int AtkDmg = GetDamageOfUnit(ref attacker);
@@ -40,14 +34,15 @@ public class CombatSystem : MonoBehaviour{
 		// Debug.Log("AtkDmg: " + AtkDmg);
 		// Debug.Log("DefDmg: " + DefDmg);
 
-		// AtkDmg = ApplyDefense(ref attacker, ref defender, AtkDmg);
-		// DefDmg = ApplyDefense(ref defender, ref attacker, DefDmg);
+		AtkDmg = ApplyDefense(ref attacker, ref defender, AtkDmg);
+		DefDmg = ApplyDefense(ref defender, ref attacker, DefDmg);
 		
 		// Debug.Log("AtkDmg after Defense: " + AtkDmg);
-		Debug.Log("Do attack. " + attackFreq);
+		// Debug.Log("Do attack. " + attackFreq);
 		
-		for(int i = 0; i < 2; ++i){
-			defender.Hp -= AtkDmg;
+		for(int i = 0; i < attackFreq; ++i){
+			// defender.Hp -= AtkDmg;
+			defender.Hp -= AtkDmg + 10;		// For quickness in demo
 			// Defender Counter attack
 			if (i == 0)		// Defender counterattack (only once)
 				attacker.Hp -= DefDmg;
@@ -61,6 +56,7 @@ public class CombatSystem : MonoBehaviour{
 			Debug.Log("Attacker has died: " + attacker.Hp);
 		}
 		if (defender.Hp <= 0){
+			data.HasDied(ref defender);
 			Debug.Log("Defender has died: " + defender.Hp);
 		}
 	}
@@ -69,16 +65,15 @@ public class CombatSystem : MonoBehaviour{
 		// Need unit.Equpped not made an attribute yet
 		// unit.Equipped.Type needed aswell to see if attacking with physical or magic
 
-		if(true/* unit.Equipped.Type == "physical" */){
-			// return unit.AttackDamage + (10/*unit.Equipped.Damage*/ / 10);
-			return 10;
+		if(unit.Equipped.Type.Equals("Physical")){
+			return unit.AttackDamage + (unit.Equipped.Damage / 10);
 		}else{
-			return unit.MagicDamage + (10/*unit.Equipped.Damage*/ / 10);
+			return unit.MagicDamage + (unit.Equipped.Damage / 10);
 		}
 	}
 
 	static int ApplyDefense(ref Character attacker, ref Character defender, int damage){
-		if(true/* attacker.Equipped.Type == "physical"*/){
+		if(attacker.Equipped.Type.Equals("Physical")){
 			damage = damage - defender.PhysicalResistance;
 		}else{
 			damage = damage - defender.MagicResistance;

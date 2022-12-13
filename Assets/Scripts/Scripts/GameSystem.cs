@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+// Namespaces
 using UnitControl;
 using LevelControl;
 using PI;
@@ -21,6 +23,7 @@ public class GameSystem : MonoBehaviour{
 	
 	// I want to control moved units here too
 	public GameObject[] playerTeamManager;
+	// public List<GameObject> playerTeamManager;
 	public bool[] playerHasMoved;		// Keep track of units moved this turn
 	public bool[] playerHasAttacked;		// Keep track of units attacks this turn
 	public int playerTeamSize;
@@ -28,6 +31,7 @@ public class GameSystem : MonoBehaviour{
 	bool battle;	// To confirm combat
 	// Have the same for the Enemy team
 	public GameObject[] enemyTeamManager;
+	// public List<GameObject> enemyTeamManager;
 	public bool[] enemyHasMoved;
 	public int enemyTeamSize;
 	int enemyBattleIndex;
@@ -44,6 +48,7 @@ public class GameSystem : MonoBehaviour{
 		combat = data.GetComponent<CombatSystem>();
 		pInteractions = GetComponent<PlayerInteractions>();
 		
+		// playerTeamSize = playerTeamManager.Length;
 		playerTeamSize = playerTeamManager.Length;
 		enemyBattleIndex = 0;
 		// enemyTeamSize = enemyTeamManager.Length;
@@ -171,14 +176,6 @@ public class GameSystem : MonoBehaviour{
 		enemyTeamSize = enemyTeamManager.Length;
 		// Debug.Log("Team size: " + enemyTeamSize);
 		enemyHasMoved = new bool[enemyTeamSize];
-		/*
-		// Render the unit highlight
-		for(int i = 0; i < enemyTeamSize; i++){
-			enemyTeamManager[i].GetComponent<UnitController>().EnableHighlight(true);
-		}
-		PlayerTurnStart();
-		flag = true;
-		*/
 	}
 	
 	// Return the unit that the player has selected
@@ -231,7 +228,6 @@ public class GameSystem : MonoBehaviour{
 	public void DoBattle(){
 		Character attacker = null;
 		Character defender = null;
-		// bool isMagic;
 		
 		// Select the enemy to attack
 		// Place enemy units so they can only be attacked in order
@@ -255,17 +251,14 @@ public class GameSystem : MonoBehaviour{
 		// Pass the active player unit	
 		if(activeIndex == 0){	// This is always Ahagan (Main char)
 			attacker = data.ahagan;
-			// isMagic = true;
 			// Debug.Log("Attacker: " + attacker.ClassName);
 		}
 		else if(activeIndex == 1){	
 			attacker = data.secondCharacter;
-			// isMagic = false;
 			// Debug.Log("Attacker: " + attacker.ClassName);
 		}
 		else if(activeIndex == 2){
 			attacker = data.thirdCharacter;
-			// isMagic = false;
 			// Debug.Log("Attacker: " + attacker.ClassName);
 		}
 		else {
@@ -281,6 +274,29 @@ public class GameSystem : MonoBehaviour{
 		}
 		else {
 			Debug.Log("Error: CombatSystem failed to invoke.");
+		}
+	}
+	
+	public void UnitHasDied(int index){
+		if(index < 3){	// Ignore this for now
+			/*
+			Destroy(playerTeamManager[index]);
+			playerTeamManager[index] = null;
+			playerHasMoved[index] = null;
+			playerHasAttacked[index] = null;
+			--playerTeamSize;
+			*/
+		}
+		else {
+			// Destroy(enemyTeamManager.IndexOf(index - 3));	// Index cheese
+			Destroy(enemyTeamManager[index-3]);		// Index cheese
+			// enemyTeamManager.RemoveAt(index - 3);
+			// enemyHasMoved.RemoveAt(index);
+			// enemyHasAttacked.RemoveAt(index);
+			--enemyTeamSize;
+			++enemyBattleIndex;
+			if(enemyTeamSize <= 0)
+				SceneManager.LoadScene("EndGame");
 		}
 	}
 }
