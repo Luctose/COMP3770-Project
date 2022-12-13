@@ -23,12 +23,14 @@ public class CombatSystem : MonoBehaviour{
 	public static void RunCombatSystem(ref Character attacker, ref Character defender){
 		// NOTE: Defender can counter attack once!
 		int attackFreq;
-
+		
 		// Not going to violate math
 		if(defender.Speed == 0){
 			attackFreq = 2;
-		}else{
+		}else if(attacker.Speed > defender.Speed){
 			attackFreq = attacker.Speed / defender.Speed;	// Defender can only counterattack once
+		}else{
+			attackFreq = 1;
 		}
 
 		int AtkDmg = GetDamageOfUnit(ref attacker);
