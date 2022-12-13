@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Data : MonoBehaviour{
 	// Keep a single instance of the DataStorage
 	public static Data Instance;
+	public GameSystem gameSystem;
 	// The base class for all characters 
 	// public Character character;
 	public Mage ahagan;		// Main Character
@@ -43,10 +44,12 @@ public class Data : MonoBehaviour{
 	}
 	
 	void Update(){
+		/*
 		// Test
 		if(Input.GetKeyDown("i")){
 			Debug.Log("Name = " + ahagan.ClassName);
 		}
+		*/
 	}
 	
 	// First-time initialization
@@ -76,17 +79,31 @@ public class Data : MonoBehaviour{
 	}
 	
 	// A character has died
-	public void HasDied(ref Character attacker, ref Character defender){
-		if(attacker.Hp <= 0){
-			Debug.Log("Attacker has died.");
+	public void HasDied(ref Character ded){
+		if(ded == ahagan){
+			Debug.Log("Game Over");
+			// Restart mission
 		}
-		if (defender.Hp <= 0){
-			Debug.Log("Defender has died.");
+		else if(ded == secondCharacter){
+			secondCharacter = null;
+			gameSystem.UnitHasDied(1);
 		}
-		
-		Debug.Log("Attacker HP: " + attacker.Hp);
-		Debug.Log("Defender HP: " + defender.Hp);
-		// Destroy(deadChar);
+		else if(ded == thirdCharacter){
+			thirdCharacter = null;
+			gameSystem.UnitHasDied(2);
+		}
+		else if(ded == swordEnemy){
+			swordEnemy = null;
+			gameSystem.UnitHasDied(3);
+		}
+		else if(ded == axeEnemy){
+			axeEnemy = null;
+			gameSystem.UnitHasDied(4);
+		}
+		else if(ded == lanceEnemy){
+			lanceEnemy = null;
+			gameSystem.UnitHasDied(5);
+		}
 	}
 	
 	// Setter/Getter (More cheese)
@@ -103,7 +120,7 @@ public class Data : MonoBehaviour{
 				break;
 			default:
 				selectedUnit = null;
-				Debug.Log("Error: Data.SetSelectedUnit");
+				// Debug.Log("Error: Data.SetSelectedUnit");
 				break;
 		}
 	}
