@@ -14,9 +14,11 @@ public class Mage : Character
         range = 2;
         speed = 1;
         attackDamage = 0;
-        magicDamage = 2;
+        magicDamage = 3;
         physicalResistance = 1;
         magicResistance = 2;
+
+        equipped = new Weapon("Magic", 10);
     }
 
     new public bool LevelUp(){

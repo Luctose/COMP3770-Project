@@ -13,10 +13,12 @@ public class Archer : Character
         movement = 4;
         range = 3;
         speed = 2;
-        attackDamage = 2;
+        attackDamage = 3;
         magicDamage = 0;
         physicalResistance = 2;
         magicResistance = 1;
+
+        equipped = new Weapon("Physical", 10);
     }
 
     new public bool LevelUp(){

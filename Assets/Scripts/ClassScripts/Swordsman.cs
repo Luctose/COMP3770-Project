@@ -17,6 +17,8 @@ public class Swordsman : Character
         magicDamage = 0;
         physicalResistance = 1;
         magicResistance = 1;
+
+        equipped = new Weapon("Physical", 10);
     }
 
     new public bool LevelUp(){

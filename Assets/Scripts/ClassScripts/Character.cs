@@ -24,7 +24,7 @@ public class Character
 
     // Other character attributes
     // protected Inventory characterInventory; <-- Commented out as the Inventory class needs to be made first
-    // protected Item Equipped; <-- Same as above
+    protected Weapon equipped;
 
     // Base Constructor
     /* Constructor initializes values to minimum values
@@ -105,6 +105,11 @@ public class Character
     public int MagicResistance{
         get{return magicResistance;}
         set{magicResistance = value;}
+    }
+
+    public Weapon Equipped{
+        get{return equipped;}
+        set{equipped = value;}
     }
 
     /* This method levels up a characters stats and resets thier experience points

@@ -17,6 +17,8 @@ public class Bruiser : Character
         magicDamage = 0;
         physicalResistance = 3;
         magicResistance = 3;
+
+        equipped = new Weapon("Physical", 10);
     }
 
     new public bool LevelUp(){
