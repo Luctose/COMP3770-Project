@@ -6,13 +6,15 @@ public class PauseMenuManager : MonoBehaviour
 {
     public GameObject pauseCanvas;
     public GameObject mainPauseMenu;
-    public GameObject currScene;
+    public GameObject overlay;
+    GameObject currScene;
     int pausedFlag;
 
     // Start is called before the first frame update
     void Start()
     {
         pausedFlag = 0;
+        overlay.SetActive(true);
     }
 
     // Update is called once per frame
@@ -22,6 +24,7 @@ public class PauseMenuManager : MonoBehaviour
         {
             if(Input.GetKeyUp("escape"))
             {
+                overlay.SetActive(false);
                 pauseCanvas.SetActive(true);
                 currScene = mainPauseMenu;
                 currScene.SetActive(true);
@@ -32,10 +35,7 @@ public class PauseMenuManager : MonoBehaviour
         {
             if(Input.GetKeyUp("escape"))
             {
-                currScene.SetActive(false);
-                currScene = null;
-                pauseCanvas.SetActive(false);
-                pausedFlag = 0;
+                resumeGame();
             }
         }
     }
@@ -50,6 +50,7 @@ public class PauseMenuManager : MonoBehaviour
         currScene.SetActive(false);
         currScene = null;
         pauseCanvas.SetActive(false);
+        overlay.SetActive(true);
         pausedFlag = 0;
     }
 }
