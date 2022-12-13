@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.010881026, g: 0.009843713, b: 0.014138336, a: 1}
+  m_IndirectSpecularColor: {r: 0.10258, g: 0.097535454, b: 0.12321786, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -23886,6 +23886,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1970749027}
   m_CullTransparentMesh: 1
+--- !u!1001 &1971310315
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2342157659891135859, guid: 3ccd726fd8b27b94ab7e3bd3b110a1b6, type: 3}
+      propertyPath: m_RootOrder
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 2342157659891135859, guid: 3ccd726fd8b27b94ab7e3bd3b110a1b6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -81.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2342157659891135859, guid: 3ccd726fd8b27b94ab7e3bd3b110a1b6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -70.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2342157659891135859, guid: 3ccd726fd8b27b94ab7e3bd3b110a1b6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2342157659891135859, guid: 3ccd726fd8b27b94ab7e3bd3b110a1b6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2342157659891135859, guid: 3ccd726fd8b27b94ab7e3bd3b110a1b6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2342157659891135859, guid: 3ccd726fd8b27b94ab7e3bd3b110a1b6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2342157659891135859, guid: 3ccd726fd8b27b94ab7e3bd3b110a1b6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2342157659891135859, guid: 3ccd726fd8b27b94ab7e3bd3b110a1b6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2342157659891135859, guid: 3ccd726fd8b27b94ab7e3bd3b110a1b6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2342157659891135859, guid: 3ccd726fd8b27b94ab7e3bd3b110a1b6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5815746627751987227, guid: 3ccd726fd8b27b94ab7e3bd3b110a1b6, type: 3}
+      propertyPath: m_Name
+      value: Swordsman
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3ccd726fd8b27b94ab7e3bd3b110a1b6, type: 3}
 --- !u!1 &1974277918 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5184658188937618164, guid: a890263b358208a439b64ce6d36a58dc, type: 3}

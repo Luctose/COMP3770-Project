@@ -20,63 +20,56 @@ public class CombatSystem : MonoBehaviour{
 	}
 	
     // Running method for this class
-	public void RunCombatSystem(GameObject atatcker, GameObject defender, bool isMagic){
-		// magic = isMagic;
-		// GetAttackerStats(attacker);
-		// GetDefenderStats(defender);
-		// CalculateDamage();
-		// Update Data Storage
-		
-	}
-	
-	// Fetch the Attacker's stats
-	void GetAttackerStats(GameObject attacker){
-		// Health
-		// attackerHP = attackerHealth;
-		// Strength/Magic
-		// if(magic)
-			// this.attackerDamage = attackerMagic;
-		// else {this.attackerDamage = attackerDamage;}
-		// Speed
-		// this.attackerSpeed = attackerSpeed;
-		// Weapons
-		// attackerWeaponDMG = attackerEquippedWeaponDMG;
-	}
-	
-	// Fetch Defender's Stats
-	void GetDefenderStats(GameObject defender){
-		// Health
-		// Defense/Resistance
-		// if(magic)
-			// this.defenderDefense = defenderResistance;
-		// else {this.defenderDefense = defenderDefense;}
-		// Speed
-		// this.defenderSpeed = defenderSpeed;
-		// Weapons
-		// defenderWeaponDMG = defenderEquippedWeaponDMG;
-	}
-	
-	// Calculate the Damage
-	void CalculateDamage(){
+	public static void RunCombatSystem(ref Character attacker, ref Character defender){
 		// NOTE: Defender can counter attack once!
-		// int attackFreq = attackerSpeed / defenderSpeed;	// Defender can only counterattack once
-		// int AtkDmg = attackerDamage + (attackerEquippedWeaponDMG / 10);		This needs tweaking (%?)
-		// int DefDmg = defenderDamage + (defenderEquippedWeaponDMG / 10);
-		// int totalAttackerDamage = AtkDmg - defenderDefense;
-		// int totalDefenderDamage = DefDmg - attackerDefense;
+		int attackFreq;
+
+		// Not going to violate math
+		if(defender.Speed == 0){
+			attackFreq = 2;
+		}else{
+			attackFreq = attacker.Speed / defender.Speed;	// Defender can only counterattack once
+		}
+
+		int AtkDmg = GetDamageOfUnit(ref attacker);
+
+		int DefDmg = GetDamageOfUnit(ref defender);
+
+		AtkDmg = ApplyDefense(ref attacker, ref defender, AtkDmg);
+		DefDmg = ApplyDefense(ref defender, ref attacker, DefDmg);
 		
-		// if(totalAttackerDamage < 0){
-			// Make it 0 damage
-			// totalAttackerDamage = 0;
-		// if(totalDefenderDamage < 0){
-			// Make it 0 damage
-			// totalDefenderDamage = 0;
-		
-		// for(int i = 0; i < attackFreq; i++){			
-			// defenderHP -= totalDamage;
+		for(int i = 0; i < attackFreq; ++i){
+			defender.Hp -= AtkDmg;
 			// Defender Counter attack
-			// if (i == 0)		// Defender counterattack (only once)
-				// attackerHP -= totalDefenderDamage;
-		// }
+			if (i == 0)		// Defender counterattack (only once)
+				attacker.Hp -= DefDmg;
+		}
+		// May or may not need to Update data storage
+	}
+
+	static int GetDamageOfUnit(ref Character unit){
+		// Need unit.Equpped not made an attribute yet
+		// unit.Equipped.Type needed aswell to see if attacking with physical or magic
+
+		if(true/* unit.Equipped.Type == "physical" */){
+			return unit.AttackDamage + (10/*unit.Equipped.Damage*/ / 10);
+		}else{
+			return unit.MagicDamage + (10/*unit.Equipped.Damage*/ / 10);
+		}
+	}
+
+	static int ApplyDefense(ref Character attacker, ref Character defender, int damage){
+		if(true/* attacker.Equipped.Type == "physical"*/){
+			damage = damage - defender.PhysicalResistance;
+		}else{
+			damage = damage - defender.MagicResistance;
+		}
+
+		// Ensure it is not negative
+		if(damage < 0){
+			damage = 0;
+		}
+		// Return the net damage
+		return damage;
 	}
 }
