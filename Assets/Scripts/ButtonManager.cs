@@ -17,14 +17,15 @@ public class ButtonManager : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void quit()
+    public void menuSwap(GameObject targPage)
     {
-        SceneManager.LoadScene("NewMenu");
+        targPage.SetActive(true);
+        gameObject.SetActive(false);
     }
 
-    public void saveGame()
-    {
-        //CODE FOR SAVING DATA
+    public void quit(){SceneManager.LoadScene("NewMenu");}
+
+    public void saveGame(){//CODE FOR SAVING DATA
     }
 
     public void returnToGame()
@@ -33,5 +34,11 @@ public class ButtonManager : MonoBehaviour
         managerScript = manager.GetComponent<PauseMenuManager>();
         managerScript.resumeGame();
     }
+
+    public void playGame(){SceneManager.LoadScene("LevelMerge");}
+
+    public void appQuit(){Application.Quit();}
+
+    public void saveSettings(){PlayerPrefs.Save();}
 
 }

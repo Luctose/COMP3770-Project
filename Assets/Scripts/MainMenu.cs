@@ -98,10 +98,7 @@ public class MainMenu : MonoBehaviour
                     }
                     else if(i == 1){screen=1;}
                     else if(i == 2){screen=2;}
-                    else{
-                        // Load the pressed scene
-                        SceneManager.LoadScene(m_levelNames[i]);
-                    }
+                    else if(i == 0){SceneManager.LoadScene("LevelMerge");}
                 }
             }
         }
